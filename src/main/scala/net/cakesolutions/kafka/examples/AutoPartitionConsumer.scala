@@ -1,4 +1,4 @@
-package net.cakesolutions.kafkatest
+package net.cakesolutions.kafka.examples
 
 import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Props}
 import cakesolutions.kafka.KafkaConsumer
