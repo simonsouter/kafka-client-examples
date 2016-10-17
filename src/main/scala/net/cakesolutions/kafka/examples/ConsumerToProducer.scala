@@ -12,7 +12,7 @@ import scala.concurrent.duration._
 
 /**
   * This example demonstrates an At-Least-Once delivery pipeline from Kafka topic: 'topic1' to 'topic2'.
-  * Simple Kafka Consumer is used with an AutoPartition subscription, records are send via a Kafka Producer
+  * KafkaConsumerActor is used with an AutoPartition subscription, records are send via a KafkaProducerActor
   * and committed back to source when confirmed.
   *
   * If multiple instances of this application are started, Kafka will balance the topic and data across the applications (parallel streaming).
@@ -69,12 +69,21 @@ class ConsumerToProducer(
     case recordsExt(records) =>
       processRecords(records)
 
-      // Confirmed Offsets from KafkaProducer
+    // Confirmed Offsets from KafkaProducer
     case o: Offsets =>
       consumer ! Confirm(o, commit = true)
   }
 
-  private def processRecords(records: ConsumerRecords[String, String]) =
-    // Send records to Topic2
-    producer ! ProducerRecords.fromConsumerRecords("topic2", records, None)
+  // Demonstrates some transformation of the messages before forwarding to KafkaProducer
+  private def processRecords(records: ConsumerRecords[String, String]) = {
+    val transformedRecords = records.pairs.map { case (key, value) =>
+      (key, value + ".")
+    }
+
+    // Send records to Topic2.  Offsets will be sent back to this actor once confirmed.
+    producer ! ProducerRecords.fromKeyValues[String, String]("topic2", transformedRecords, Some(records.offsets), None)
+
+    // Could have sent them like this if we didn't first transform:
+    // producer ! ProducerRecords.fromConsumerRecords("topic2", records, None)
+  }
 }
