@@ -49,6 +49,8 @@ class AutoPartitionConsumer(
   consumer ! Subscribe.AutoPartition(List("topic1"))
 
   override def receive: Receive = {
+
+    // Records from Kafka
     case recordsExt(records) =>
       processRecords(records.pairs)
       sender() ! Confirm(records.offsets, commit = true)

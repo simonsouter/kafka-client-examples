@@ -1,8 +1,8 @@
 import Dependencies._
 
-name := "kafka_test"
+name := "kafka_client_examples"
 
-version := "1.0"
+version := "0.0.1-SNAPSHOT"
 
 scalaVersion := "2.11.8"
 
