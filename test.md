@@ -24,6 +24,20 @@ Subscription request
 |**lastSyncDate**  <br>*optional*| |string (date-time)|x|x|
 |**nextRenewalDate**  <br>*optional*| |string (date-time)|x|x|
 
+
+<a name="subscriptionsource"></a>
+### SubscriptionSource
+Proof of ownership
+
+
+|Name|Description|Schema|
+|---|---|---|
+|**provider**  <br>*required*|The provider of the subscription - such as company owning the store. It is not validated by the subscription service.<br>It is part of the unique identifier of a subscription. Enumeration is used but describes just subset of the possible values. This will grow<br>as new stores are added.|enum (BAMTECH, APPLE, GOOGLE, ROKU, SAMSUNG)|
+|**ref**  <br>*required*|Source reference identifier - value depends on the source type and source subType. In case of D2C it is an order id.|string|
+|**subType**  <br>*optional*|The subType is a free field to provide more context about how the subscription has been acquired.<br>The subType is not validated by the subscription service and it depends on the source of the subscription. Enumeration is used but describes currently available values which are provided by the actual sources.|enum (GIFT_SUB, GIFT_CARD, PAID, PROMO_REDEMPTION, COMP, TEMP)|
+|**type**  <br>*required*|The original source of the subscriptions used as part of the<br>primary key, D2C and CST are commerce specific and IAP, MVPD are activation specific. It is defined as enum but it is not validated as new sources can be added.|enum (D2C, MVPD, IAP, CST)|
+
+
 <a name="subscribe-status"></a>
 **status**
 
