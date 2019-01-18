@@ -1,5 +1,10 @@
 
 
+<a name="subscribe"></a>
+### Subscribe
+Subscription request
+
+
 |Name|Description|Schema|v1|v2|
 |---|---|---|---|---|
 |**sku**  <br>*required*| |< string > array|x|x|
@@ -18,3 +23,28 @@
 |**expiryType**  <br>*required*|The expiry and start dates are optional this field indicates why<br>the type of expiry. Type Expiry requires expiration_date to be set.|enum (EXPIRY, UNKNOWN, NO_EXPIRY)|x| |
 |**lastSyncDate**  <br>*optional*| |string (date-time)|x|x|
 |**nextRenewalDate**  <br>*optional*| |string (date-time)|x|x|
+
+<a name="subscribe-status"></a>
+**status**
+
+|Name|Schema|
+|---|---|
+|**subType**  <br>*optional*|string|
+|**type**  <br>*required*|enum (SUBSCRIBED, UNSUBSCRIBED)|
+
+<a name="cancellation"></a>
+**cancellation**
+
+|Name|Schema|
+|---|---|
+|**reason**  <br>*required*|enum (VOLUNTARY_CANCEL, INVOLUNTARY_CANCEL, TRIAL_ABANDONED, UNKNOWN_CANCEL)|
+|**status**  <br>*optional*|string|
+
+<a name="offer"></a>
+**offer**
+
+|Name|Schema|
+|---|---|
+|**type**  <br>*required*|enum (FREE_TRIAL, DISCOUNT, PROMO_REDEMPTION)|
+|**endDate**  <br>*optional*|string (date-time)|
+
